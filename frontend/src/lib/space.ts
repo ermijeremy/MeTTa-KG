@@ -26,7 +26,7 @@ function initNode(
 
 function initNodesFromApiResponse(
   data: ExploreResponse[],
-  _parentLabel?: string
+  parentExpr?: string
 ): { nodes: SpaceNode[]; prefix: string[] } {
   const processedData = data.map((item) => ({
     token: new Uint8Array(item.token),
@@ -77,7 +77,12 @@ function initNodesFromApiResponse(
     }
   }
 
-  return { nodes, prefix };
+  // Filter out nodes where expr is similar to parentExpr (trimmed string comparison)
+  const filteredNodes = nodes.filter(
+    (node) => node.remoteData.expr.trim() !== (parentExpr || "").trim()
+  );
+
+  return { nodes: filteredNodes, prefix };
 }
 
 function tokenToString(token: Uint8Array): string {

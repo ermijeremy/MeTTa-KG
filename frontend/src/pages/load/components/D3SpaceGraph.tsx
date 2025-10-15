@@ -423,7 +423,10 @@ export default function D3TreeGraph(props: D3TreeGraphProps) {
       );
 
       if (parsedChildren && parsedChildren.length > 0) {
-        const newNodesData = initNodesFromApiResponse(parsedChildren);
+        const newNodesData = initNodesFromApiResponse(
+          parsedChildren,
+          d.data.expr
+        );
         const newNodes = newNodesData.nodes;
         const prefix = newNodesData.prefix;
 

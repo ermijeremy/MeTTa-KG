@@ -90,7 +90,7 @@ const LoadPage = () => {
           }
         >
           <D3TreeGraph
-            data={initNodesFromApiResponse(subSpace()!)}
+            data={initNodesFromApiResponse(subSpace()!, "")}
             pattern={pattern()}
             ref={setupGraphApi}
           />
