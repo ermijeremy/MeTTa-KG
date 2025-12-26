@@ -1,4 +1,4 @@
-import { createResource, createSignal, createMemo } from "solid-js";
+import { createResource, createSignal, createMemo, createRoot } from "solid-js";
 import {
   fetchTokens,
   refreshCodes,
@@ -22,7 +22,7 @@ export enum SortableColumns {
 import { setNamespace, setTokenRootNamespace } from "~/lib/state";
 
 export const [tokens, { mutate: mutateTokens, refetch: refetchTokens }] =
-  createResource(
+  createRoot(() => createResource(
     () => (rootToken() ? rootToken() : null),
     async (token) => {
       try {
@@ -58,7 +58,7 @@ export const [tokens, { mutate: mutateTokens, refetch: refetchTokens }] =
       }
     },
     { initialValue: [] }
-  );
+  ));
 
 export const [selectedTokens, setSelectedTokens] = createSignal<Token[]>([]);
 export const [sortColumn, setSortColumn] = createSignal<SortableColumns>(
@@ -70,7 +70,7 @@ export const [sortDirection, setSortDirection] = createSignal<"asc" | "desc">(
 export const [namespaceFilter, setNamespaceFilter] = createSignal("");
 export const [descriptionFilter, setDescriptionFilter] = createSignal("");
 
-export const filteredAndSortedTokens = createMemo(() => {
+export const filteredAndSortedTokens = createRoot(() => createMemo(() => {
   const nsRegex = new RegExp(namespaceFilter(), "i");
   const descRegex = new RegExp(descriptionFilter(), "i");
   return tokens()
@@ -88,7 +88,7 @@ export const filteredAndSortedTokens = createMemo(() => {
       }
       return sortDirection() === "desc" ? -result : result;
     });
-});
+}));
 
 export const handleSort = (column: SortableColumns) => {
   if (sortColumn() === column) {
