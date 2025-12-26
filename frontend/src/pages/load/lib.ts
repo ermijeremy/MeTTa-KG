@@ -1,4 +1,4 @@
-import { createSignal, createResource } from "solid-js";
+import { createSignal, createResource, createRoot } from "solid-js";
 import { formatedNamespace } from "~/lib/state";
 import { ParseError } from "~/types";
 import { exploreSpace } from "~/lib/api";
@@ -27,7 +27,7 @@ export const [isIndented, setIsIndented] = createSignal(false);
 export const handleToggleIndent = () => setIsIndented((p) => !p);
 
 export const [subSpace, { refetch: refetchSubSpace, mutate: mutateSubSpace }] =
-  createResource(
+  createRoot(() => createResource(
     () => ({
       path: formatedNamespace(),
       expr: pattern(),
@@ -52,7 +52,7 @@ export const [subSpace, { refetch: refetchSubSpace, mutate: mutateSubSpace }] =
         return [];
       }
     }
-  );
+  ));
 
 export const refreshSpace = () => {
   mutateSubSpace([]);
