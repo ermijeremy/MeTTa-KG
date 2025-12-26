@@ -1,4 +1,4 @@
-import { createMemo, createSignal } from "solid-js";
+import { createMemo, createSignal, createRoot } from "solid-js";
 
 const [rootToken, _setRootToken] = createSignal<string | null>(
   localStorage.getItem("rootToken")
@@ -31,7 +31,7 @@ export const setRootToken = (token: string | null) => {
   }
 };
 
-export const formatedNamespace = createMemo(() => {
+export const formatedNamespace = createRoot(() => createMemo(() => {
   if (namespace().length <= 1) return "/";
   return namespace().join("/");
-});
+}));
