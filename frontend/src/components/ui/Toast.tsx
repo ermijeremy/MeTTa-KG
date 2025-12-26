@@ -22,8 +22,7 @@ export function showToast(options: ToastOptions) {
   const id = ++toastId;
   setToasts((prev) => [...prev, { ...options, id }]);
   const duration = options.duration ?? 5000; // Increased default duration
-  const timer = setTimeout(() => removeToast(id), duration);
-  onCleanup(() => clearTimeout(timer));
+  setTimeout(() => removeToast(id), duration);
 }
 
 export function removeToast(id: number) {
