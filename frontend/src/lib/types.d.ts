@@ -26,7 +26,11 @@ export interface ExploreDetail {
 export interface Mm2Input {
   pattern: string[] | string;
   template: string[] | string;
+<<<<<<< HEAD
   format?: string;
+=======
+  max_write?: number | null;
+>>>>>>> origin/feat/add-export-pagination
 }
 export interface Mm2CellValue {
   value: string;

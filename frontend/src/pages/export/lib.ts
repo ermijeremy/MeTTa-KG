@@ -11,12 +11,17 @@ export const [pattern, setPattern] = createSignal("$x\n\n\n");
 export const [template, setTemplate] = createSignal("$x\n\n\n");
 export const [result, setResult] = createSignal<string | null>(null);
 export const [exportError, setExportError] = createSignal<Error | null>(null);
+export const [maxWrite, setMaxWrite] = createSignal<number | null>(null);
 
 export const handleExport = async (spacePath: string) => {
   const exportInput: Mm2Input = {
     pattern: pattern().trim() || "$x",
     template: template().trim() || "$x",
+<<<<<<< HEAD
     format: format().charAt(0).toUpperCase() + format().slice(1),
+=======
+    max_write: maxWrite(),
+>>>>>>> origin/feat/add-export-pagination
   };
 
   setIsLoading(true);
@@ -25,6 +30,7 @@ export const handleExport = async (spacePath: string) => {
 
   try {
     const exportResponse = await exportSpace(spacePath, exportInput);
+<<<<<<< HEAD
     
     const defaultResult = exportInput.format === "Metta" ? "()" : "";
     setResult(exportResponse || defaultResult);
@@ -33,6 +39,13 @@ export const handleExport = async (spacePath: string) => {
       title: "Export Complete",
       description: `Exported data with pattern: ${exportInput.pattern}`,
     });
+=======
+      setResult(exportResponse || "()");
+      showToast({
+        title: "Export Complete",
+        description: `Exported data with pattern: ${exportInput.pattern}`,
+      });
+>>>>>>> origin/feat/add-export-pagination
   } catch (e) {
     const error = e instanceof Error ? e : new Error("Failed to export data");
     setExportError(error);
@@ -52,3 +65,13 @@ export const handleExport = async (spacePath: string) => {
     setIsLoading(false);
   }
 };
+
+export const isInputValid = (val: number | null) => {
+  return val !== null && val >= 1;
+  };
+
+export const handleInput = (e: InputEvent) => {
+    const raw = (e.currentTarget as HTMLInputElement).value;
+    const val = Number(raw);
+    setMaxWrite(val);
+  };

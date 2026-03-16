@@ -612,7 +612,16 @@ impl ExportRequest {
         self.format = Some(format);
         self
     }
+    pub fn max_write(mut self, max: Option<usize>) -> Self {
+        self.max_write = max.map(|m| m.saturating_sub(1));
+        self
+    }
 }
+
+fn add(a: i32, b: i32) -> i32 {
+    a + b
+}
+
 
 impl Request for ExportRequest {
     type Body = ();
