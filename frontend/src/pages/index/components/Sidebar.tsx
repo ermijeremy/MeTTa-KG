@@ -3,11 +3,27 @@ import { Accessor } from "solid-js";
 import { Button } from "~/components/ui/Button";
 import { A } from "@solidjs/router";
 import Settings from "~/components/common/Settings";
+import type { Component, JSX } from "solid-js";
+
+type SidebarIcon = Component<{ class?: string }> | (() => JSX.Element);
+
+interface SidebarItem {
+  id: string;
+  label: string;
+  to: string;
+  icon: SidebarIcon;
+  component?: Component;
+}
+
+interface SidebarSection {
+  title: string;
+  items: SidebarItem[];
+}
 
 interface SidebarProps {
   activeTab: Accessor<string>;
   setActiveTab: (tab: string) => void;
-  sidebarSections: any /* eslint-disable-line @typescript-eslint/no-explicit-any */;
+  sidebarSections: SidebarSection[] /* eslint-disable-line @typescript-eslint/no-explicit-any */;
 }
 
 export default function Sidebar({
@@ -42,7 +58,7 @@ export default function Sidebar({
           <nav class="space-y-6 flex-1 overflow-y-auto">
             {sidebarSections.map(
               (
-                section: any /* eslint-disable-line @typescript-eslint/no-explicit-any */
+                section: SidebarSection /* eslint-disable-line @typescript-eslint/no-explicit-any */
               ) => (
                 <div class="mb-8">
                   <h3 class="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-2">
@@ -51,7 +67,7 @@ export default function Sidebar({
                   <div class="space-y-1">
                     {section.items.map(
                       (
-                        item: any /* eslint-disable-line @typescript-eslint/no-explicit-any */
+                        item: SidebarItem /* eslint-disable-line @typescript-eslint/no-explicit-any */
                       ) => {
                         const Icon = item.icon;
                         const isActive = activeTab() === item.id;

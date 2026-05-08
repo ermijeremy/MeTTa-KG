@@ -1,4 +1,4 @@
-import { LanguageSupport, StreamLanguage } from "@codemirror/language";
+import { LanguageSupport, StreamLanguage, StringStream } from "@codemirror/language";
 
 // Create a simple Metta language based on JavaScript with custom highlighting
 export const mettaLanguage = new LanguageSupport(
@@ -6,7 +6,7 @@ export const mettaLanguage = new LanguageSupport(
     name: "metta",
     startState: () => ({}),
     token: (
-      stream: any /* eslint-disable-line @typescript-eslint/no-explicit-any */
+      stream: StringStream /* eslint-disable-line @typescript-eslint/no-explicit-any */
     ) => {
       // Handle comments (lines starting with ;)
       if (stream.match(/^;.*$/)) {

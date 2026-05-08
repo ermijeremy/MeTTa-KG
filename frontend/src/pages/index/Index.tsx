@@ -1,5 +1,5 @@
 import { Route, Router } from "@solidjs/router";
-import { createSignal, For, Show, onMount } from "solid-js";
+import { createSignal, For, Show, onMount, ParentProps } from "solid-js";
 import LoadPage from "../load/Load";
 import UploadPage from "../upload/Upload";
 import TransformPage from "../transform/Transform";
@@ -137,7 +137,7 @@ export const sidebarSections = [
 ];
 
 const AppLayout = (
-  props: any /* eslint-disable-line @typescript-eslint/no-explicit-any */
+  props: ParentProps /* eslint-disable-line @typescript-eslint/no-explicit-any */
 ) => {
   const [activeTab, setActiveTab] = createSignal("explore");
 

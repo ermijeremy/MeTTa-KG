@@ -1,3 +1,5 @@
+import { JSX } from "solid-js/h/jsx-runtime";
+
 interface Token {
   id: number;
   code: string;
@@ -115,7 +117,7 @@ export interface FloatingCardProps {
     | "top-right-secondary";
   width?: string;
   height?: string;
-  children?: any;
+  children?: JSX.Element | JSX.Element[];
   className?: string;
 }
 
